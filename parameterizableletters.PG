@@ -1,0 +1,255 @@
+.PROGRAM LetraESPOL
+ speed 2 always
+ inicio1:
+ PRINT 2: "ELIGE TAMAÑO NUMÉRICO, SI SELECCIONA 0 SE ACABARÁ EL PROGRAMA"
+ PROMPT 2: "INGRESA EL VALOR POR TECLADO ", .k
+ inicio:
+ .X=-450.326
+ .Y=275.337
+ .Z=-88.032
+ .d=0
+ $palabra = ""
+ .angA=178.536
+ .angO=51.828
+ .angT=-124.607
+ IF .k < 7 AND .k > 0 THEN 
+	;TYPE 2: "TAMAÑO ELEGIDO ", .k
+	GOTO lazo23
+ ELSE
+	IF .K == 0 then
+		GOTO fin
+	ELSE
+		print 2: "TAMAÑO FUERA DE RANGO"
+		GOTO inicio1
+	END
+ END
+ lazo23:
+ PROMPT 2: "INGRESA e(ESPOL), (f)FIEC, r(REGRESAR) O fin POR TECLADO ", $palabra
+ IF $palabra == "e" then
+	TYPE 2: "ELEGISTE ESPOL TAMAÑO", .k
+	GOTO espol1 
+ ELSE
+	IF $palabra == "f" then
+	TYPE 2: "ELEGISTE FIEC TAMAÑO", .k
+	GOTO FIEC1
+	ELSE
+		IF $palabra == "fin" then
+		GOTO fin
+		ELSE 
+			IF $palabra == "r" then
+				GOTO inicio1
+			END
+		END
+	END		
+ END
+ PRINT 2: "PALABRA NO ADMITIDA"
+ GOTO lazo23
+ lazo20:
+
+
+ ESPOL1:
+ .Y=.Y+75
+
+ ESPOL:
+ .Y=.Y-18*.k
+ POINT .A0 = TRANS(.X, .Y , .Z, .angO, .angA, .angT)
+ POINT .A1 = TRANS(.X+20*.k,.Y, .Z, .angO, .angA, .angT)
+ POINT .A1_10 = TRANS(.X+20*.k,.Y-4*.k, .Z, .angO, .angA, .angT)
+ POINT .A2 = TRANS(.X+20*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+ point .A3 = TRANS(.X,.Y-12*.k,.Z, .angO, .angA, .angT)
+ point .A6_3 = TRANS(.X,.Y-10*.k,.Z, .angO, .angA, .angT)
+ POINT .A4 = TRANS(.X+10*.k,.Y, .Z, .angO, .angA, .angT)
+ POINT .A5 = TRANS(.X+10*.k, .Y-12*.k , .Z, .angO, .angA, .angT)
+ POINT .A6 = TRANS(.X,.Y-8*.k , .Z, .angO, .angA, .angT)
+ POINT .A7 = TRANS(.X+5*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+ POINT .A8 = TRANS(.X+10*.k,.Y-8*.k, .Z, .angO, .angA, .angT)
+ POINT .A8_1 = TRANS(.X+10*.k,.Y-10*.k, .Z, .angO, .angA, .angT)
+ POINT .A8_2 = TRANS(.X+10*.k,.Y-6*.k, .Z, .angO, .angA, .angT)
+ point .A9 = TRANS(.X+15*.k,.Y,.Z, .angO, .angA, .angT)
+ POINT .A10 = TRANS(.X+20*.k,.Y-8*.k, .Z, .angO, .angA, .angT)
+ POINT .A12 = TRANS(.X+15*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+ IF .d==0 THEN
+ 	JAPPRO .A3,30
+ 	speed 1 always
+	LMOVE .A3
+ 	LMOVE .A0
+ 	LMOVE .A1
+ 	LMOVE .A2
+ 	LDEPART 30
+ 	LAPPRO .A4, 20
+ 	LMOVE .A4
+ 	LMOVE .A8
+ 	LDEPART 30
+ END
+ IF .d==1 THEN
+ 	JAPPRO .A0,20
+ 	speed 1 always
+ 	LMOVE .A0
+	LMOVE .A6_3
+	C1MOVE .A7
+	C2MOVE .A8_1
+	LMOVE .A8_2
+	C1MOVE .A9
+	C2MOVE .A1_10
+	LMOVE .A2
+ 	LDEPART 30	
+ END
+ IF .d==2 THEN 
+ 	JAPPRO .A0,20
+ 	speed 1 always
+ 	LMOVE .A0
+	accuracy 25
+ 	LMOVE .A1
+	LMOVE .A10
+ 	C1MOVE .A12
+	C2MOVE .A4
+	LDEPART 30	
+ END
+ IF .d==3 THEN  
+	JAPPRO .A6,20
+	speed 1 always
+	LMOVE .A6
+	C1MOVE .A5
+	C1MOVE .A10
+	C1MOVE .A4
+	C2MOVE .A6
+	LDEPART 30 	
+ END
+ IF .d==4 THEN 
+ 	JAPPRO .A3,30
+ 	speed 1 always
+ 	LMOVE .A3
+ 	LMOVE .A0
+	LMOVE .A1
+	LDEPART 180	
+ END
+ IF .d<=4 THEN
+	.d =.d+1
+	GOTO ESPOL
+ ELSE
+	IF .d==5 THEN
+		.d=0
+		GOTO inicio1
+	END
+ END
+
+ FIEC1:
+ .Y1 = .Y + 75
+ POINT .A0A = TRANS(.X-4, .Y1 , .Z, .angO, .angA, .angT)
+ POINT .A6A = TRANS(.X-4,.Y1-4*.k , .Z, .angO, .angA, .angT)
+ POINT .AA1 = TRANS(.X+12,.Y1-6*.k , .Z, .angO, .angA, .angT)
+ POINT .AA2 = TRANS(.X-16,.Y1-8*.k , .Z, .angO, .angA, .angT)
+ POINT .AA3 = TRANS(.X+19,.Y1-10*.k , .Z, .angO, .angA, .angT)
+ POINT .AA4 = TRANS(.X-18,.Y1-12*.k , .Z, .angO, .angA, .angT)
+ POINT .AA5 = TRANS(.X-4,.Y1-14*.k , .Z, .angO, .angA, .angT)
+ POINT .AA6 = TRANS(.X-4,.Y1-102*.k , .Z, .angO, .angA, .angT)
+
+ JAPPRO .A0A,30
+ SPEED 0.5 ALWAYS
+ LMOVE .A0A
+ LMOVE .A6A
+ LMOVE .AA1
+ LMOVE .AA2
+ LMOVE .AA3
+ LMOVE .AA4
+ LMOVE .AA5
+ LMOVE .AA6
+ GOTO FIEC
+
+ FIEC:
+ .Y=.Y-18*.k
+ POINT .A0 = TRANS(.X, .Y , .Z, .angO, .angA, .angT)
+ POINT .A1 = TRANS(.X+20*.k,.Y, .Z, .angO, .angA, .angT)
+ POINT .A2 = TRANS(.X+20*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+ point .A3 = TRANS(.X,.Y-12*.k,.Z, .angO, .angA, .angT)
+ POINT .A4 = TRANS(.X+10*.k,.Y, .Z, .angO, .angA, .angT)
+ POINT .A5 = TRANS(.X+10*.k, .Y-12*.k , .Z, .angO, .angA, .angT)
+ POINT .A5_1 = TRANS(.X+10*.k, .Y-16*.k , .Z, .angO, .angA, .angT)
+ POINT .A6 = TRANS(.X,.Y-8*.k , .Z, .angO, .angA, .angT)
+ POINT .A7 = TRANS(.X+5*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+ POINT .A8 = TRANS(.X+10*.k,.Y-8*.k, .Z, .angO, .angA, .angT)
+ point .A9 = TRANS(.X+15*.k,.Y,.Z, .angO, .angA, .angT)
+ POINT .A10 = TRANS(.X+20*.k,.Y-8*.k, .Z, .angO, .angA, .angT)
+ POINT .A10_1 = TRANS(.X+15*.k,.Y-8*.k, .Z, .angO, .angA, .angT)
+ POINT .A12 = TRANS(.X+15*.k,.Y-12*.k, .Z, .angO, .angA, .angT)
+
+ IF .d==0 THEN
+ 	JAPPRO .A0,30
+ 	speed 1 always
+ 	LMOVE .A0
+ 	LMOVE .A1
+ 	LMOVE .A2
+ 	LDEPART 30
+ 	LAPPRO .A4, 20
+ 	LMOVE .A4
+ 	LMOVE .A8
+ 	LDEPART 30
+ END
+ IF .d==1 THEN
+ 	JAPPRO .A1,30
+ 	speed 1 always
+	LMOVE .A1
+ 	LMOVE .A10
+ 	LMOVE .A6
+ 	LMOVE .A3
+ 	LDEPART 30
+ 	LAPPRO .A0, 20
+ 	LMOVE .A0
+ 	LMOVE .A6
+ 	LDEPART 30
+ 	LAPPRO .A10, 20
+ 	LMOVE .A10
+ 	LMOVE .A2
+ 	LDEPART 30
+ END
+ IF .d==2 THEN 
+ 	JAPPRO .A3,30
+ 	speed 1 always
+	LMOVE .A3
+ 	LMOVE .A0
+ 	LMOVE .A1
+ 	LMOVE .A2
+ 	LDEPART 30
+ 	LAPPRO .A4, 20
+ 	LMOVE .A4
+ 	LMOVE .A8
+ 	LDEPART 30
+ END
+ IF .d==3 THEN  
+ 	JAPPRO .A3,30
+ 	speed 1 always
+	LMOVE .A3
+ 	LMOVE .A0
+ 	LMOVE .A1
+ 	LMOVE .A2
+ 	LDEPART 80
+ END
+ IF .d==4 THEN  
+ 	JAPPRO .A6,30
+ 	speed 1 always
+	LMOVE .A6
+ 	LMOVE .A4
+ 	C1MOVE .A1
+ 	C2MOVE .A10_1
+	C1MOVE .A2
+	C2MOVE .A5
+	LMOVE .A6
+ 	LDEPART 180
+ END
+ IF .d<=4 THEN
+	.d =.d+1
+	GOTO FIEC
+ ELSE
+	IF .d==5 THEN
+		.d=0
+		GOTO inicio1
+	END
+ END
+
+ fin:
+ SPEED 20
+ HOME
+ PRINT 2: "HASTA LUEGO"
+ end:
+.END
+

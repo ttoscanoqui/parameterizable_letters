@@ -1,0 +1,18 @@
+.PROGRAM elip
+.x0 = -280
+.a = -60
+.y0 = -120
+.b = 60
+.t = 0
+
+FOR .t = 0 to 180
+	POINT .pos = TRANS(.x0 + .a*cos(.t), .y0 + .b*sin(.t), 50, 0, -180, 0)
+	LMOVE .pos
+END
+
+POINT .P1 = TRANS(.x0-60,.y0,50,0,-180,0)
+POINT .P2 = TRANS(.x0,.y0,50,0,-180,0)
+LMOVE .P2
+LMOVE .P1
+
+.END
