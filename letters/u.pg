@@ -1,0 +1,54 @@
+﻿
+.PROGRAM letraU
+
+	jMOVE TRANS(9.000*K,3.000*K,-50.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(9.000*K,3.000*K,0.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(2.000*K,3.000*K,0.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(0.000*K,4.000*K,0.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(0.000*K,8.000*K,0.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(2.000*K,9.000*K,0.000,0.0000,0.0000,0.0000)
+	lMOVE TRANS(9.000*K,9.000*K,0.000,0.0000,0.0000,0.0000)	
+	;cuando coloco el lazo for para digujr el semicriculo, bota un error en la tercera línea del código
+	;si solamente ejecuto el lazo for, lo hace sin ningún problema
+	;FOR .t = 90 to 270
+	;OX = 3*K			;CENTRO EN X DE LA CIRCUNFERENCIA
+	;OY = 6*K			;CENTRO EN Y DE LA CIRCUNFERENCIA
+	;R = 3*K				;RADIO DE LA CIRCUNFERENCIA
+	;POINT .pos = TRANS(OX + R*cos(.t),OY  + R*sin(.t), 0, 0, 0, 0)   ; SEMICIRCUNFERENCIA
+	;LMOVE .pos
+	;END
+	;JMOVE TRANS(9.000*K,3.000*K,-50.000,0.0000,0.0000,0.0000)
+	
+	Y = Y + 10.5*K
+.END
+
+
+.PROGRAM MAIN()
+	BASE NULL				;definimos base por defecto ;origen por defecto
+	SPEED 50 MM/S ALWAYS
+	VALORK:					;INICIO DE LAZO
+	PROMPT 2: "INGRESA EL TAMANO DE LETRA ENTRE 5 (5CM) Y 20(20CM), O 0(CERO) PARA SALIR  = ", K	;espera el ingreso del valor k por medio del teachpendant
+	END:					;FIN DE LAZO es opcional
+	IF K >4.9 AND K < 21 THEN
+		X = -250.000
+		Y = -415.000
+		Z = -80.000
+		A = 0
+		O = -180
+		T = 0
+		BASE TRANS(X,Y,Z,A,O,T) ;CAMBIO DE BASE
+		CALL letraU				;LLAMADO A LA FUNCION
+		GOTO VALORK
+	ELSE
+		IF K == 0 THEN
+			GOTO SALIR
+	ELSE 
+		PRINT 2: "FUERA DEL LÍMITE, INGRESE TAMANO CORRECTO"
+		GOTO VALORK
+	END
+	END
+	;REP_ONCE OFF		;se ejecuta siclos infinitos
+	SALIR:
+	JMOVE #[-90.000,0.000,-90.000,0.000,-90.000,0.0000]			;moviento del robot colocando los grados que cada articulacion gira
+	PRINT 2: "GRACIAS"
+.END

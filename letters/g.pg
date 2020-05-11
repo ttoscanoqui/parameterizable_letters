@@ -1,0 +1,60 @@
+﻿
+
+.PROGRAM letraG
+
+	FOR .t = 0 to 315
+	OX = 5*K			;CENTRO EN X DE LA ELIPSE
+	OY = 5*K			;CENTRO EN Y DE LA ELIPSE
+	POINT .pos = TRANS(OX - OX*cos(.t),OY  - OY*sin(.t), 0, 0, 0, 0)   ; MOVIMIENTO ELIPTICO, OX Y OY TAMBIEN SON VALORES DE AMPLITUD 
+	LMOVE .pos
+	END
+	
+.END
+
+.PROGRAM rabito
+
+	OX = 5*K			;CENTRO EN X DE LA ELIPSE
+	OY = 5*K			;CENTRO EN Y DE LA ELIPSE
+	LMOVE TRANS(OX,OY,-50.0000,0.0000,0.0000,0.0000);
+	LMOVE TRANS(OX,OY,0.0000,0.0000,0.0000,0.0000);
+	LMOVE TRANS(OX - OX*cos(0),OY  - OY*sin(0),0.0000,0.0000,0.0000,0.0000);
+	LMOVE TRANS(OX - OX*cos(0),OY  - OY*sin(0),-50.0000,0.0000,0.0000,0.0000);
+	 		
+.END
+
+
+
+
+.PROGRAM MAIN()
+	BASE NULL				;definimos base por defecto ;origen por defecto
+	SPEED 50 MM/S ALWAYS
+	VALORK:					;INICIO DE LAZO
+	PROMPT 2: "INGRESA EL TAMANO DE LETRA ENTRE 5 (5CM) Y 20(20CM), O 0(CERO) PARA SALIR  = ", K	;espera el ingreso del valor k por medio del teachpendant
+	END:					;FIN DE LAZO es opcional
+	IF K >4.9 AND K < 21 THEN
+		OX = 5*K			;CENTRO EN X DE LA ELIPSE
+		OY = 5*K			;CENTRO EN Y DE LA ELIPSE
+		X = -250.000
+		Y = -415.000
+		Z = -80.000
+		A = 0
+		O = -180
+		T = 0
+		BASE TRANS(X,Y,Z,A,O,T) ;CAMBIO DE BASE
+		CALL letraG				;LLAMADO A LA FUNCION	
+		CALL rabito				;LLAMADO A LA FUNCION
+		GOTO VALORK				;LLAMADO A UN LAZO
+	ELSE
+		IF K == 0 THEN
+			GOTO SALIR
+	ELSE 
+		PRINT 2: "FUERA DEL LÍMITE, INGRESE TAMANO CORRECTO"
+		GOTO VALORK
+	END
+	END
+	;REP_ONCE OFF		;se ejecuta ciclos infinitos
+	SALIR:
+	JMOVE #[-90.000,0.000,-90.000,0.000,-90.000,0.0000]			;moviento del robot colocando los grados que cada articulacion gira
+	PRINT 2: "GRACIAS"
+.END
+
