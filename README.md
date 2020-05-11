@@ -6,6 +6,6 @@
 ## The Parameterizable_letters code
     Is an example to an interaction Human robot, in this code when it is executed,
     first solicited to the user to insert the size of the letters to been written, 
-    the solicited to insert wich word does the robot will writen , ESPOL or FIEC. 
+    theN solicited to insert wich word does the robot will writen , ESPOL or FIEC. 
     
 ### NOTE: All of the commands  insert by the user, are validated in the code.
