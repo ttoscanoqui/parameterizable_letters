@@ -1,5 +1,5 @@
 # parameterizable_letters
-# Programming Kawasaki Robots in As Languages 
+# Programming Kawasaki Robots in As Language
 ## The ellipse code
     This code contains the necessary movements to draw an ellipse using parameterizable movements.
     
